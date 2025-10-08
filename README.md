@@ -1,7 +1,6 @@
 <div align="center"> 
-  <img src="https://github.com/user-attachments/assets/cb3f4ec8-4504-4fe9-b402-8d1588a986a8" height="200" width="200"/>
-  <h1 align="center">Uinxed-Kernel</h1>
-  <h3 align="center">Welcome to the Uinxed-Kernel project</h3>
+  <h1 align="center">Rinx Kernel</h1>
+  <h3 align="center">Welcome to Rinx Kernel project. The unofficial Uinxed-Kernel.</h3>
 </div>
 
 <div align="center">
@@ -13,7 +12,7 @@
 
 ## Overview 💡
 
-Uinxed-Kernel is a Unix-like operating system kernel developed from scratch, focusing on modern computer architecture and advanced system design concepts. The project aims to build an efficient, stable, and scalable operating system kernel while maintaining code clarity and maintainability.
+Rinx is a Unix-like operating system kernel developed from scratch, focusing on modern computer architecture and advanced system design concepts. The project aims to build an efficient, stable, and scalable operating system kernel while maintaining code clarity and maintainability.
 
 ## Core Features 🌟
 
@@ -70,8 +69,8 @@ sudo apk add make gcc qemu-system xorriso clang-format clang-tidy kconfig-fronte
 ### Clone the project
 
 ```bash
-git clone https://github.com/ViudiraTech/Uinxed-Kernel.git
-cd Uinxed-Kernel
+git clone https://github.com/ViudiraTech/Rinx.git
+cd Rinx
 ```
 
 ### Start Compiling
@@ -113,7 +112,7 @@ Boot with ventoy:
 ## Project Structure 📁
 
 ```
-Uinxed-Kernel/
+Rinx/
 ├── .git/            # Version management.
 ├── .github/         # Github configuration file.
 ├── assets/          # Static resource files.
@@ -135,7 +134,7 @@ Uinxed-Kernel/
 ```
 
 ```
-Uinxed-Kernel/
+Rinx/
 ├── UxImage         # Kernel file.
 └── Uinxed-x64.iso  # Bootable image.
 ```
@@ -261,18 +260,9 @@ You can be more casual, no need to be too formal. It is because of your question
 4. **Native language allowed.**
 You can submit an issue in your own language. However, please be aware of factors such as spelling that may affect the translation results, and sometimes the translator may not work well because of this.
 
-## Contributors 👨‍💻
-
-| Number | Nick name | Github | Job |
-|---|---|---|---|
-| 1 | MicroFish | [FengHeting](https://github.com/FengHeting) | Main Development. Planning. Management. |
-| 2 | Rainy101112 | [Rainy101112](https://github.com/Rainy101112) | Deputy Development. Planning. Management. |
-| 3 | suhuajun | [suhuajun-github](https://github.com/suhuajun-github) | Code optimization. Testing. Bug fixing. |
-| 4 | XSlime | [W9pi3cZ1](https://github.com/W9pi3cZ1) | Features. Code optimization. Testing. Bug fixing. |
-| 5 | TMX | [TMXQWQ](https://github.com/TMXQWQ) | Features. Code optimization. Testing. Bug fixing. |
-
 ## Open source projects referenced or used 🎈
 
+- Uinxed-Kernel official:[https://github.com/ViudiraTech/Uinxed-Kernel](https://github.com/ViudiraTech/Uinxed-Kernel)
 - Hurlex-Kernel:[http://wiki.0xffffff.org/](http://wiki.0xffffff.org/)
 - CoolPotOS:[https://github.com/plos-clan/CoolPotOS](https://github.com/plos-clan/CoolPotOS)
 
@@ -282,6 +272,4 @@ This project adopts the GPL-3.0 open source agreement. Please refer to the LICEN
 
 ## Contact details 📩
 
-Email：2609948707@qq.com | 3585302907@qq.com
-Join our discord server: [Click here](https://discord.gg/nTkg7HCpy7)
-Tencent QQ chat group: [983673299](https://qm.qq.com/q/8goacFf1iU)
+Email：rainy101112@163.com | rainy101112official@gmail.com
