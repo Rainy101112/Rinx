@@ -16,9 +16,9 @@
 #include "idt.h"
 #include "limine.h"
 #include "printk.h"
+#include "rinx.h"
 #include "stddef.h"
 #include "stdint.h"
-#include "uinxed.h"
 
 int x2apic_mode;
 

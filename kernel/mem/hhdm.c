@@ -15,7 +15,7 @@
 #include "page.h"
 #include "page_walker.h"
 #include "printk.h"
-#include "uinxed.h"
+#include "rinx.h"
 
 /* Get physical memory offset */
 uint64_t get_physical_memory_offset(void)

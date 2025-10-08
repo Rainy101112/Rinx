@@ -27,10 +27,10 @@
 #include "pci.h"
 #include "printk.h"
 #include "ps2.h"
+#include "rinx.h"
 #include "serial.h"
 #include "smbios.h"
 #include "smp.h"
-#include "uinxed.h"
 #include "video.h"
 
 /* Executable entry */

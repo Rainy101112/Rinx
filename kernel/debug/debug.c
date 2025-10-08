@@ -13,10 +13,10 @@
 #include "common.h"
 #include "limine.h"
 #include "printk.h"
+#include "rinx.h"
 #include "smbios.h"
 #include "stdarg.h"
 #include "symbols.h"
-#include "uinxed.h"
 
 int carry_error_code = 0;
 

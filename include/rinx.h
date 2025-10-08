@@ -1,6 +1,6 @@
 /*
  *
- *      uinxed.h
+ *      rinx.h
  *      Kernel description header file
  *
  *      2024/7/23 By Rainy101112

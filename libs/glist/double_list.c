@@ -1,7 +1,7 @@
 /*
  *
- *      intrusive_list.c
- *      Intrusive Linked List
+ *      double_list.c
+ *      Double chain list
  *
  *      2025/7/21 By MicroFish
  *      Based on GPL-3.0 open source agreement
@@ -9,7 +9,7 @@
  *
  */
 
-#include "intrusive_list.h"
+#include "double_list.h"
 
 /* Initialize the intrusive linked list header node */
 int ilist_init(struct ilist_node *list)

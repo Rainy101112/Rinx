@@ -15,8 +15,8 @@
 #include "limine.h"
 #include "pci.h"
 #include "printk.h"
+#include "rinx.h"
 #include "stdint.h"
-#include "uinxed.h"
 
 xsdt_t *xsdt = 0;
 rsdt_t *rsdt = 0;

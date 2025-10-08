@@ -22,12 +22,12 @@
 #include "limine.h"
 #include "page.h"
 #include "printk.h"
+#include "rinx.h"
 #include "spin_lock.h"
 #include "stddef.h"
 #include "stdint.h"
 #include "stdlib.h"
 #include "string.h"
-#include "uinxed.h"
 
 static cpu_processor_t *cpus;
 static size_t           cpu_count = 0;

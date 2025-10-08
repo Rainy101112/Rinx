@@ -15,7 +15,7 @@
 #include "limine.h"
 #include "page.h"
 #include "printk.h"
-#include "uinxed.h"
+#include "rinx.h"
 
 log_buffer_t      frame_log;
 frame_allocator_t frame_allocator;

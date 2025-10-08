@@ -12,8 +12,8 @@
 #include "limine_module.h"
 #include "limine.h"
 #include "printk.h"
+#include "rinx.h"
 #include "string.h"
-#include "uinxed.h"
 
 lmodule_t     lmodule[128];
 static size_t lmodule_count = 0;

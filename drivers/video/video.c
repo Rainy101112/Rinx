@@ -14,9 +14,9 @@
 #include "cpuid.h"
 #include "gfx_proc.h"
 #include "limine.h"
+#include "rinx.h"
 #include "stddef.h"
 #include "stdint.h"
-#include "uinxed.h"
 
 extern uint8_t ascii_font[]; // Fonts
 

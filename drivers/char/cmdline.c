@@ -10,7 +10,7 @@
  */
 
 #include "limine.h"
-#include "uinxed.h"
+#include "rinx.h"
 
 /* Get the kernel command line */
 const char *get_cmdline(void)
