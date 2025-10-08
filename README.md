@@ -135,8 +135,8 @@ Rinx/
 
 ```
 Rinx/
-├── UxImage         # Kernel file.
-└── Uinxed-x64.iso  # Bootable image.
+├── RxImage          # Kernel file.
+└── Rinx-x64.iso     # Bootable image.
 ```
 
 ## FAQ 🔍

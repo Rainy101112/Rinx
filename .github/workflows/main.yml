@@ -38,12 +38,12 @@ jobs:
       - name: Upload ISO file as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Uinxed-x64.iso
-          path: ./Uinxed-x64.iso
+          name: Rinx-x64.iso
+          path: ./Rinx-x64.iso
 
       - name: Upload Kernel file as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: UxImage
-          path: ./UxImage
+          name: RxImage
+          path: ./RxImage
 ...

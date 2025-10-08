@@ -48,8 +48,8 @@
 *.pdb
 
 # Project Objectives
-UxImage
-Uinxed-x64.iso
+RxImage
+Rinx-x64.iso
 
 # Clangd
 .clangd

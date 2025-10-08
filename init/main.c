@@ -1,7 +1,7 @@
 /*
  *
  *      main.c
- *      Uinxed-kernel entry
+ *      Rinx kernel entry
  *
  *      2024/6/23 By MicroFish
  *      Based on GPL-3.0 open source agreement
@@ -37,7 +37,7 @@
 /* Executable entry */
 void executable_entry(void)
 {
-    const char msg[] = "Logically you should use Limine to boot it instead of executing it directly, right?\n";
+    const char msg[] = "This program cannot run on an OS directly.\n";
     __asm__ volatile("mov $1, %%rax\n"
                      "mov $1, %%rdi\n"
                      "lea %[msg], %%rsi\n"
