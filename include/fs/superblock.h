@@ -1,3 +1,14 @@
+/*
+ *
+ *      superblock.h
+ *      Superblock manager
+ *
+ *      2025/10/8 By Rainy101112
+ *      Based on GPL-3.0 open source agreement
+ *      Rinx Kernel project.
+ *
+ */
+
 #ifndef INCLUDE_SUPERBLOCK_H_
 #define INCLUDE_SUPERBLOCK_H_
 

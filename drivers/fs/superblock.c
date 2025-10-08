@@ -1,3 +1,14 @@
+/*
+ *
+ *      superblock.c
+ *      Superblock manager
+ *
+ *      2025/10/8 By Rainy101112
+ *      Based on GPL-3.0 open source agreement
+ *      Rinx Kernel project.
+ *
+ */
+
 #include "fs/superblock.h"
 #include "alloc.h"
 #include "printk.h"

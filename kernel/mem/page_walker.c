@@ -5,7 +5,7 @@
  *
  *      2025/10/3 By W9pi3cZ1
  *      Based on GPL-3.0 open source agreement
- *      Copyright © 2020 ViudiraTech, based on the GPLv3 agreement.
+ *      Rinx Kernel project.
  *
  */
 

@@ -5,7 +5,7 @@
  *
  *      2024/8/21 By MicroFish
  *      Based on GPL-3.0 open source agreement
- *      Copyright © 2020 ViudiraTech, based on the GPLv3 agreement.
+ *      Rinx Kernel project.
  *
  */
 
