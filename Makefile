@@ -1,7 +1,7 @@
 # =====================================================
 #
 #      Makefile
-#      Uinxed-Kernel compile script
+#      Rinx Kernel compile script
 #
 #      2024/6/23 By Rainy101112
 #      Based on GPL-3.0 open source agreement
@@ -89,7 +89,7 @@ CHECKS         := -quiet -checks=-*,clang-analyzer-*,bugprone-*,cert-*,misc-*,pe
 C_FLAGS        := -Wall -Wextra -O3 -g3 -m64 -fpie -ffreestanding -fno-optimize-sibling-calls -fno-stack-protector -fno-omit-frame-pointer -mstackrealign -mno-red-zone -I include -MMD
 LD_FLAGS       := -nostdlib -pie -T assets/linker.ld -m elf_x86_64
 
-all: info Uinxed-x64.iso
+all: info Rinx-x64.iso
 
 %.o: %.c
 	$(V)$(CC) $(C_FLAGS) $(C_CONFIG) -c -o $@ $<
@@ -106,22 +106,22 @@ all: info Uinxed-x64.iso
 	$(Q)clang-tidy $< $(CHECKS) -- $(C_FLAGS)
 
 info:
-	$(Q)printf "Uinxed-Kernel Compile Script.\n"
-	$(Q)printf "Copyright 2020 ViudiraTech. Based on the GPLv3 license.\n"
+	$(Q)printf "Rinx Compile Script.\n"
+	$(Q)printf "Rinx project (Unofficial Uinxed-Kernel).\n"
 	$(Q)printf "Based on the GPL-3.0 open source license.\n"
 	$(Q)echo
 
-UxImage: $(OBJS) $(LIBS)
+RxImage: $(OBJS) $(LIBS)
 	$(V)$(LD) $(LD_FLAGS) -o $@ $^
 
-Uinxed-x64.iso: UxImage
+Rinx-x64.iso: RxImage
 	$(Q)echo
 	$(Q)printf "\033[1;32m[ISO]\033[0m Packing ISO file...\n"
 	$(Q)cp -a assets/Limine iso
 	$(Q)cp $< iso/EFI/Boot
 	$(Q)xorriso -as mkisofs -R -r -J -b Limine/limine-bios-cd.bin -no-emul-boot -boot-load-size 4 \
                 -boot-info-table -hfsplus -apm-block-size 2048 -efi-boot-part --efi-boot-image --protective-msdos-label \
-                --efi-boot Limine/limine-uefi-cd.bin -o Uinxed-x64.iso iso
+                --efi-boot Limine/limine-uefi-cd.bin -o Rinx-x64.iso iso
 
 	$(Q)$(RM) -rf iso
 	$(Q)printf "\033[1;32m[Done]\033[0m Compilation complete.\n\n"
@@ -129,9 +129,9 @@ Uinxed-x64.iso: UxImage
 .PHONY: help run clean gen.clangd menuconfig format check
 
 help:
-	$(Q)printf "Uinxed-Kernel Makefile Usage:\n"
+	$(Q)printf "Rinx Makefile Usage:\n"
 	$(Q)printf "  make all         - Build the entire project.\n"
-	$(Q)printf "  make run         - Run the Uinxed-x64.iso in QEMU.\n"
+	$(Q)printf "  make run         - Run the Rinx-x64.iso in QEMU.\n"
 	$(Q)printf "  make clean       - Clean all generated files.\n"
 	$(Q)printf "  make gen.clangd  - Generate .clangd configuration file.\n"
 	$(Q)printf "  make menuconfig  - Run menuconfig to configure the kernel.\n"
@@ -139,12 +139,12 @@ help:
 	$(Q)printf "  make check       - Run static code checks using clang-tidy.\n"
 	$(Q)printf "  make help        - Display this help message.\n\n"
 
-run: Uinxed-x64.iso
+run: Rinx-x64.iso
 	$(QEMU) $(QEMU_FLAGS) -cdrom $<
 	$(Q)echo
 
 clean:
-	$(Q)$(RM) $(OBJS) $(DEPS) UxImage Uinxed-x64.iso
+	$(Q)$(RM) $(OBJS) $(DEPS) RxImage Rinx-x64.iso
 	$(Q)printf "\033[1;32m[Done]\033[0m Clean completed.\n\n"
 
 gen.clangd:

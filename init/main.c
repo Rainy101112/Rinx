@@ -32,6 +32,7 @@
 #include "smbios.h"
 #include "smp.h"
 #include "video.h"
+#include "fs/superblock.h"
 
 /* Executable entry */
 void executable_entry(void)
@@ -89,6 +90,8 @@ void kernel_entry(void)
     smp_init();                   // Initialize SMP
     print_memory_map();           // Print memory map information
     log_buffer_print(&frame_log); // Print frame log
+
+    superblock_init();
     pci_init();                   // Initialize PCI
     lmodule_init();               // Initialize the passed-in resource module list
     init_ide();                   // Initialize ATA/ATAPI driver
