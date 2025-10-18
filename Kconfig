@@ -1,13 +1,11 @@
 mainmenu "Rinx Kernel"
 
 menu "Kernel debugging"
-
   config KERNEL_LOG
     bool "Kernel runtime logging output"
     default y
     help
       "Outputs kernel log messages during system runtime to aid the monitoring and debugging."
-
 endmenu
 
 menu "Processor configuration"
@@ -63,6 +61,7 @@ menu "Device drivers"
           "Buffer size for temporarily storing input and output data in the teletype driver."
 
     endmenu
+
     menu "Serial port drivers"
 
       config SERIAL_BAUD_RATE
@@ -86,6 +85,37 @@ menu "Device drivers"
         help
           "Number of stop bits per character for the serial port device."
 
-    endmenu
+    endmenu 
+
+    menuconfig ATA_ATAPI_ENABLE
+      bool "ATA/ATAPI device support"
+      default 1
+      help
+        "Enable ATA/ATAPI devices support."
+
+      if BLOCK_ENABLE
+        if ATA_ATAPI_ENABLE
+            config ATA_ATAPI_TODO
+              bool "TODO"
+              default 1
+              help
+                "TODO."
+        endif
+      endif
+
   endmenu
 endmenu
+
+menuconfig BLOCK_ENABLE
+  bool "Block devices"
+  default 1
+  help
+    "Enable block devices support."
+
+  if BLOCK_ENABLE
+    config BLOCK_TODO
+      bool "TODO"
+      default 1
+      help
+        "TODO."
+  endif

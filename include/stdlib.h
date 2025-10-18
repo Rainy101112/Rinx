@@ -72,6 +72,12 @@ size_t wnumber(writer *writer, num_formatter_t fmter, num_fmt_type type);
 /* Convert a string number to an integer number */
 int atoi(const char *pstr);
 
+int utoa(unsigned int value, char *str, int base);
+
+int itoa(int value, char *str, int base);
+
+int ftoa(double value, char *str, int precision);
+
 /* Skip numbers in a string and return the value of those consecutive numbers */
 int skip_atoi(const char **s);
 

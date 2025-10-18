@@ -12,6 +12,7 @@
 #include "ide.h"
 #include "apic.h"
 #include "common.h"
+#include "fs/sb_devices.h"
 #include "interrupt.h"
 #include "pci.h"
 #include "printk.h"
@@ -38,7 +39,7 @@ uint8_t        ide_buf[2048]    = {0};
 static uint8_t atapi_packet[12] = {
     0xa8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 };
-static int package[2];
+int package[2];
 
 /* Interrupt status bit */
 static volatile uint8_t ide_irq_invoked = 0;
@@ -240,6 +241,7 @@ void init_ide(void)
         bar_addrs[idx] = cast.val;
     }
     ide_initialize(bar_addrs[0], bar_addrs[1], bar_addrs[2], bar_addrs[3], bar_addrs[4]);
+    ide_superblock_init();
 }
 
 /* Read a byte of data from the specified register of the IDE device */

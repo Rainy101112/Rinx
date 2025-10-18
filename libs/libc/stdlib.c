@@ -11,6 +11,7 @@
 
 #include "stdlib.h"
 #include "stdint.h"
+#include "string.h"
 
 /* Write a formatted number to a writer */
 size_t wnumber(writer *writer, num_formatter_t fmter, num_fmt_type type) // NOLINT
@@ -127,6 +128,121 @@ int skip_atoi(const char **s)
     int i = 0;
     while (IS_DIGIT(**s)) i = i * 10 + *((*s)++) - '0';
     return i;
+}
+
+int itoa(int value, char *str, int base)
+{
+    char *ptr  = str;
+    char *ptr1 = str;
+    char  tmp_char;
+    int   tmp_value;
+    int   length = 0;
+
+    // 处理负数
+    if (value < 0 && base == 10) {
+        *ptr++ = '-';
+        value  = -value;
+        length++;
+    }
+
+    // 转换数字（逆序）
+    do {
+        tmp_value = value;
+        value /= base;
+        *ptr++ = "0123456789abcdef"[tmp_value - value * base];
+        length++;
+    } while (value);
+
+    *ptr-- = '\0';
+
+    // 反转字符串
+    if (*str == '-') {
+        ptr1 = str + 1;
+    } else {
+        ptr1 = str;
+    }
+
+    while (ptr1 < ptr) {
+        tmp_char = *ptr;
+        *ptr--   = *ptr1;
+        *ptr1++  = tmp_char;
+    }
+
+    return length;
+}
+
+int ftoa(double value, char *str, int precision)
+{
+    int    int_part  = (int)value;
+    double frac_part = value - int_part;
+    int    length    = 0;
+
+    // 处理整数部分
+    if (value < 0) {
+        *str++ = '-';
+        length++;
+        int_part  = -int_part;
+        frac_part = -frac_part;
+    }
+
+    length += itoa(int_part, str, 10);
+    str += length - (value < 0 ? 1 : 0);
+
+    // 处理小数部分
+    if (precision > 0) {
+        *str++ = '.';
+        length++;
+
+        // 将小数部分转换为整数
+        for (int i = 0; i < precision; i++) { frac_part *= 10; }
+
+        int frac_int = (int)(frac_part + 0.5); // 四舍五入
+
+        char frac_str[20];
+        int  frac_len = itoa(frac_int, frac_str, 10);
+
+        // 补前导零
+        for (int i = frac_len; i < precision; i++) {
+            *str++ = '0';
+            length++;
+        }
+
+        strncpy(str, frac_str, frac_len);
+        length += frac_len;
+        str[frac_len] = '\0';
+    } else {
+        *str = '\0';
+    }
+
+    return length;
+}
+
+int utoa(unsigned int value, char *str, int base)
+{
+    char        *ptr  = str;
+    char        *ptr1 = str;
+    char         tmp_char;
+    unsigned int tmp_value;
+    int          length = 0;
+
+    // 转换数字（逆序）
+    do {
+        tmp_value = value;
+        value /= base;
+        *ptr++ = "0123456789abcdef"[tmp_value - value * base];
+        length++;
+    } while (value);
+
+    *ptr-- = '\0';
+
+    // 反转字符串
+    while (ptr1 < ptr) {
+        tmp_char = *ptr;
+        *ptr--   = *ptr1;
+        *ptr1++  = tmp_char;
+    }
+
+    return length;
 }
 
 /* Formatting an integer as a string */

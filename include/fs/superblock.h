@@ -31,7 +31,7 @@ typedef enum superblock_result {
     SB_ERROR_IO,            // I/O error
     SB_ERROR_INVALID_PARAM, // Invaild parameter
     SB_ERROR_NO_SPACE,      // No enough space
-    SB_ERROR_NOT_SUPPORTED, // Unsupport operation
+    SB_ERROR_UNSUPPORT,     // Unsupport operation
     SB_ERROR_CORRUPTED,     // Data corrupted
 } sb_result_t;
 
@@ -75,8 +75,8 @@ typedef struct superblock {
 typedef int (*superblock_iter_cb)(sb_t *sb, void *arg);
 
 /**
- * @brief 初始化超级块
- * @return 操作结果
+ * @brief Initialize superblock manager
+ * @return Operation result
  */
 int superblock_init(void);
 
@@ -85,40 +85,58 @@ int superblock_register(sb_t sb);
 int superblock_unregister(sb_t sb);
 
 /**
- * @brief 读取超级块数据
- * @param sb 超级块指针
- * @param data 数据缓冲区
- * @param size 数据大小
- * @param offset 偏移量
- * @return 操作结果
+ * @brief Read data from a superblock
+ * @param sb Target structure
+ * @param data Data buffer
+ * @param size Data size
+ * @param offset Offset
+ * @return Result
  */
 sb_result_t superblock_read(sb_t sb, uint8_t *data, size_t size, size_t offset);
 
 /**
- * @brief 写入超级块数据
- * @param sb 超级块指针
- * @param data 数据缓冲区
- * @param size 数据大小
- * @param offset 偏移量
- * @return 操作结果
+ * @brief Write data to a superblock
+ * @param sb Target structure
+ * @param data Data buffer
+ * @param size Data size
+ * @param offset Offset
+ * @return Result
  */
 sb_result_t superblock_write(sb_t sb, const uint8_t *data, size_t size, size_t offset);
 
+/**
+ * @brief Flush a superblock
+ * @param sb Target structure
+ * @return Result
+ */
 sb_result_t superblock_flush(sb_t sb);
 
+/**
+ * @brief Do IOCTL to a superblock
+ * @param sb Target structure
+ * @param cmd Command
+ * @param arg Arguments
+ * @return Result
+ */
 sb_result_t superblock_ioctl(sb_t sb, uint32_t cmd, void *arg);
 
 /**
- * @brief 检查设备是否就绪
- * @param sb 超级块指针
- * @return 1 就绪, 0 未就绪
+ * @brief Check if a superblock device is ready
+ * @param sb Target structure
+ * @return 1 Ready, 0 Not ready
  */
 int superblock_is_ready(const sb_t sb);
 
+/* Find a superblock device by ID */
 sb_t superblock_find_id(const uint32_t id);
+
+/* Find a superblock device by name */
 sb_t superblock_find_name(const char *name);
 
+/* Get current superblock count */
 size_t superblock_count(void);
-int    superblock_foreach(superblock_iter_cb callback, void *arg);
+
+/* Foreach all the superblock devices */
+int superblock_foreach(superblock_iter_cb callback, void *arg);
 
 #endif // INCLUDE_SUPERBLOCK_H_

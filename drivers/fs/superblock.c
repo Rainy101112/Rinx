@@ -47,7 +47,7 @@ int superblock_init()
     superblocks = (sb_t *)malloc(sizeof(sb_t) * DEFAULT_SUPERBLOCK_COUNT);
 
     if (superblocks == NULL) {
-        plogk("sb: Failed to initialize superblock manager.\n");
+        plogk("vfs: Failed to initialize superblock manager.\n");
         return 0;
     }
 
@@ -57,7 +57,7 @@ int superblock_init()
         superblocks[i] = sb_dummy;
     }
 
-    plogk("sb: Superblock manager successfully.\n");
+    plogk("vfs: Superblock manager successfully.\n");
 
     return 1;
 }

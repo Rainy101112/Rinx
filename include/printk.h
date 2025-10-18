@@ -68,4 +68,6 @@ void wfmt_arg(writer *writer, args_fmter *fmter, va_list args);
 /* Use a `writer` to write formatted string */
 size_t vwprintf(writer *writer, const char *fmt, va_list args);
 
+int snprintf(char *str, size_t size, const char *format, ...);
+
 #endif // INCLUDE_PRINTK_H_

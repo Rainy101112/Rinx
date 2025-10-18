@@ -401,3 +401,110 @@ size_t vwprintf(writer *writer, const char *fmt, va_list args)
     }
     return result;
 }
+
+int snprintf(char *str, size_t size, const char *format, ...)
+{
+    va_list args;
+    va_start(args, format);
+
+    char       *ptr        = str;
+    const char *format_ptr = format;
+    size_t      count      = 0;
+
+    while (*format_ptr && count < size - 1) {
+        if (*format_ptr == '%') {
+            format_ptr++;
+
+            switch (*format_ptr) {
+                case 's' : {
+                    char *s = va_arg(args, char *);
+                    while (*s && count < size - 1) {
+                        *ptr++ = *s++;
+                        count++;
+                    }
+                    break;
+                }
+                case 'c' : {
+                    char c = (char)va_arg(args, int);
+                    if (count < size - 1) {
+                        *ptr++ = c;
+                        count++;
+                    }
+                    break;
+                }
+                case 'd' : {
+                    int  num = va_arg(args, int);
+                    char num_str[20];
+                    int  num_len = itoa(num, num_str, 10);
+
+                    for (int i = 0; i < num_len && count < size - 1; i++) {
+                        *ptr++ = num_str[i];
+                        count++;
+                    }
+                    break;
+                }
+                case 'u' : {
+                    unsigned int num = va_arg(args, unsigned int);
+                    char         num_str[20];
+                    int          num_len = utoa(num, num_str, 10);
+
+                    for (int i = 0; i < num_len && count < size - 1; i++) {
+                        *ptr++ = num_str[i];
+                        count++;
+                    }
+                    break;
+                }
+                case 'x' : {
+                    unsigned int num = va_arg(args, unsigned int);
+                    char         num_str[20];
+                    int          num_len = utoa(num, num_str, 16);
+
+                    for (int i = 0; i < num_len && count < size - 1; i++) {
+                        *ptr++ = num_str[i];
+                        count++;
+                    }
+                    break;
+                }
+                case 'f' : {
+                    double num = va_arg(args, double);
+                    char   num_str[50];
+                    int    num_len = ftoa(num, num_str, 6);
+
+                    for (int i = 0; i < num_len && count < size - 1; i++) {
+                        *ptr++ = num_str[i];
+                        count++;
+                    }
+                    break;
+                }
+                case '%' : {
+                    if (count < size - 1) {
+                        *ptr++ = '%';
+                        count++;
+                    }
+                    break;
+                }
+                default : {
+                    if (count < size - 1) {
+                        *ptr++ = '%';
+                        count++;
+                    }
+                    if (count < size - 1) {
+                        *ptr++ = *format_ptr;
+                        count++;
+                    }
+                    break;
+                }
+            }
+            format_ptr++;
+        } else {
+            *ptr++ = *format_ptr++;
+            count++;
+        }
+    }
+
+    if (size > 0) { *ptr = '\0'; }
+
+    va_end(args);
+
+    return count;
+}

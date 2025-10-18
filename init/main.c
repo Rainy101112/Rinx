@@ -16,6 +16,7 @@
 #include "debug.h"
 #include "eis.h"
 #include "frame.h"
+#include "fs/superblock.h"
 #include "gdt.h"
 #include "heap.h"
 #include "hhdm.h"
@@ -32,7 +33,6 @@
 #include "smbios.h"
 #include "smp.h"
 #include "video.h"
-#include "fs/superblock.h"
 
 /* Executable entry */
 void executable_entry(void)
@@ -92,12 +92,12 @@ void kernel_entry(void)
     log_buffer_print(&frame_log); // Print frame log
 
     superblock_init();
-    pci_init();                   // Initialize PCI
-    lmodule_init();               // Initialize the passed-in resource module list
-    init_ide();                   // Initialize ATA/ATAPI driver
-    init_serial();                // Initialize the serial port
-    init_parallel();              // Initialize the parallel port
-    init_ps2();                   // Initialize PS/2 controller
+    pci_init();      // Initialize PCI
+    lmodule_init();  // Initialize the passed-in resource module list
+    init_ide();      // Initialize ATA/ATAPI driver
+    init_serial();   // Initialize the serial port
+    init_parallel(); // Initialize the parallel port
+    init_ps2();      // Initialize PS/2 controller
     enable_intr();
 
     panic("No operation.");
