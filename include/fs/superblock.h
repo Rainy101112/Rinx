@@ -14,13 +14,22 @@
 
 #include "stddef.h"
 #include "stdint.h"
+#include "singly_list.h"
 
 #define DEFAULT_SUPERBLOCK_COUNT 26
+
+#define BLOCK_SIZE_512    512
+#define BLOCK_SIZE_1K     1024
+#define BLOCK_SIZE_2K     2048
+#define BLOCK_SIZE_4K     4096
+#define BLOCK_SIZE_8K     8192
+#define BLOCK_SIZE_64K    65536
 
 /* Superblock types */
 typedef enum superblock_types {
     SUPERBLOCK_IDE = 0,  // IDE drive
     SUPERBLOCK_AHCI,     // AHCI SATA drive
+    SUPERBLOCK_RAM,      // RAM drive (ramfs)
     SUPERBLOCK_NETDRIVE, // Network drive
     SUPERBLOCK_NULL,     // NULL
 } sb_type_t;
@@ -37,8 +46,8 @@ typedef enum superblock_result {
 
 /* Superblock operations structure */
 typedef struct superblock_operations {
-        sb_result_t (*read)(uint8_t *data, size_t size, size_t offset);
-        sb_result_t (*write)(const uint8_t *data, size_t size, size_t offset);
+        sb_result_t (*read)(void *data, size_t size, size_t offset);
+        sb_result_t (*write)(const void *data, size_t size, size_t offset);
         sb_result_t (*flush)(void);
         sb_result_t (*ioctl)(uint32_t cmd, void *arg);
 
@@ -65,6 +74,11 @@ typedef struct superblock {
         uint32_t version;  // Version
         uint32_t features; // Supported features
 
+        /* Inode */
+        uint64_t inode_count;
+        inode_t *root_inode;
+        slist_t inode_list;
+
         /* Superblock operations */
         sb_op_t operations;
 
@@ -80,8 +94,18 @@ typedef int (*superblock_iter_cb)(sb_t *sb, void *arg);
  */
 int superblock_init(void);
 
+/**
+ * @brief Register a superblock
+ * @param sb Target structure
+ * @return Operation result
+ */
 int superblock_register(sb_t sb);
 
+/**
+ * @brief Unregister a superblock
+ * @param sb Target structure
+ * @return Operation result
+ */
 int superblock_unregister(sb_t sb);
 
 /**
@@ -92,7 +116,7 @@ int superblock_unregister(sb_t sb);
  * @param offset Offset
  * @return Result
  */
-sb_result_t superblock_read(sb_t sb, uint8_t *data, size_t size, size_t offset);
+sb_result_t superblock_read(sb_t sb, void *data, size_t size, size_t offset);
 
 /**
  * @brief Write data to a superblock
@@ -102,7 +126,7 @@ sb_result_t superblock_read(sb_t sb, uint8_t *data, size_t size, size_t offset);
  * @param offset Offset
  * @return Result
  */
-sb_result_t superblock_write(sb_t sb, const uint8_t *data, size_t size, size_t offset);
+sb_result_t superblock_write(sb_t sb, const void *data, size_t size, size_t offset);
 
 /**
  * @brief Flush a superblock

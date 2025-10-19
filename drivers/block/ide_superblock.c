@@ -252,6 +252,10 @@ void ide_superblock_init(void)
                        .version  = 1,
                        .features = priv_data->is_atapi ? 0 : (1 << 0), // ATA device supports writing
 
+                       .inode_count = 0,
+                       .root_inode = NULL,
+                       .inode_list = NULL,
+
                        .operations   = ide_sb_operations[i],
                        .private_data = priv_data};
 

@@ -125,3 +125,68 @@ int slist_destroy(slist_t *list, void (*free_data)(void *))
     list->size = 0;
     return 0;
 }
+
+int slist_foreach(slist_t *list, slist_iter_fn func, void *arg)
+{
+    if (!list || !func) return 1;
+    
+    slist_node_t *current = list->head;
+    while (current != 0) {
+        int result = func(current->data, arg);
+        if (result != 0) return result;
+        current = current->next;
+    }
+    return 0;
+}
+
+void *slist_find(slist_t *list, slist_iter_fn cond, void *arg)
+{
+    if (!list || !cond) return NULL;
+    
+    slist_node_t *current = list->head;
+    while (current != 0) {
+        if (cond(current->data, arg) == 0) {
+            return current->data;
+        }
+        current = current->next;
+    }
+    return NULL;
+}
+
+int slist_remove_if(slist_t *list, slist_iter_fn cond, void *arg, void (*free_data)(void *))
+{
+    if (!list || !cond) return 1;
+    
+    slist_node_t *current = list->head;
+    slist_node_t *prev = NULL;
+    int removed = 0;
+    
+    while (current != 0) {
+        slist_node_t *next = current->next;
+        
+        if (cond(current->data, arg) == 0) {
+            if (prev) {
+                prev->next = next;
+            } else {
+                list->head = next;
+            }
+            
+            if (current == list->tail) {
+                list->tail = prev;
+            }
+            
+            if (free_data && current->data) {
+                free_data(current->data);
+            }
+            free(current);
+            list->size--;
+            removed++;
+        } else {
+            prev = current;
+        }
+        
+        current = next;
+    }
+    
+    return removed > 0 ? 0 : 1;
+}

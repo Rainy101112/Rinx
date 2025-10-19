@@ -46,4 +46,18 @@ size_t slist_size(const slist_t *list);
 /* Destroy a singly linked list */
 int slist_destroy(slist_t *list, void (*free_data)(void *));
 
+typedef int (*slist_iter_fn)(void *data, void *arg);
+
+int slist_foreach(slist_t *list, slist_iter_fn func, void *arg);
+
+void *slist_find(slist_t *list, slist_iter_fn cond, void *arg);
+
+#define slist_foreach_node(list, node) \
+    for (slist_node_t *(node) = (list)->head; (node) != NULL; (node) = (node)->next)
+
+#define slist_foreach_data(list, data, type) \
+    for (slist_node_t *__iter = (list)->head; \
+         __iter && ((data) = (type)__iter->data); \
+         __iter = __iter->next)
+
 #endif // INCLUDE_SINGLY_LIST_H_

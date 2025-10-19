@@ -13,6 +13,9 @@
 #define INCLUDE_STDDEF_H_
 
 typedef __SIZE_TYPE__    size_t;
+typedef long __ssize_t;
+typedef long ssize_t;
+
 typedef __PTRDIFF_TYPE__ ptrdiff_t;
 #if !defined(__cplusplus) && defined(__WCHAR_TYPE__)
 typedef __WCHAR_TYPE__ wchar_t;
@@ -33,5 +36,11 @@ typedef typeof(nullptr) nullptr_t;
 #    define unreachable()             __builtin_unreachable()
 #    define __STDC_VERSION_STDDEF_H__ 202311L
 #endif
+
+typedef long __off_t;
+typedef long __off64_t;
+typedef long off_t;
+
+typedef long __loff_t;
 
 #endif // INCLUDE_STDDEF_H_

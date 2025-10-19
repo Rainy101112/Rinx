@@ -119,45 +119,45 @@ int superblock_unregister(sb_t sb)
     return 0;
 }
 
-sb_result_t superblock_read(sb_t sb, uint8_t *data, size_t size, size_t offset)
+sb_result_t superblock_read(sb_t sb, void *data, size_t size, size_t offset)
 {
-    if (!data || size == 0 || !sb.operations.read) { return SB_ERROR_INVALID_PARAM; }
+    if (!data || size == 0 || !sb.operations.read) return SB_ERROR_INVALID_PARAM;
 
     if (!superblock_is_ready(sb)) { return SB_ERROR_IO; }
 
     return sb.operations.read(data, size, offset);
 }
 
-sb_result_t superblock_write(sb_t sb, const uint8_t *data, size_t size, size_t offset)
+sb_result_t superblock_write(sb_t sb, const void *data, size_t size, size_t offset)
 {
-    if (!data || size == 0 || !sb.operations.write) { return SB_ERROR_INVALID_PARAM; }
+    if (!data || size == 0 || !sb.operations.write) return SB_ERROR_INVALID_PARAM;
 
-    if (!superblock_is_ready(sb)) { return SB_ERROR_IO; }
+    if (!superblock_is_ready(sb)) return SB_ERROR_IO;
 
     return sb.operations.write(data, size, offset);
 }
 
 sb_result_t superblock_flush(sb_t sb)
 {
-    if (!sb.operations.flush) { return SB_ERROR_INVALID_PARAM; }
+    if (!sb.operations.flush) return SB_ERROR_INVALID_PARAM;
 
-    if (!superblock_is_ready(sb)) { return SB_ERROR_IO; }
+    if (!superblock_is_ready(sb)) return SB_ERROR_IO;
 
     return sb.operations.flush();
 }
 
 sb_result_t superblock_ioctl(sb_t sb, uint32_t cmd, void *arg)
 {
-    if (!sb.operations.ioctl) { return SB_ERROR_INVALID_PARAM; }
+    if (!sb.operations.ioctl) return SB_ERROR_INVALID_PARAM;
 
-    if (!superblock_is_ready(sb)) { return SB_ERROR_IO; }
+    if (!superblock_is_ready(sb)) return SB_ERROR_IO;
 
     return sb.operations.ioctl(cmd, arg);
 }
 
 int superblock_is_ready(const sb_t sb)
 {
-    if (!sb.operations.is_ready) { return 0; }
+    if (!sb.operations.is_ready) return 0;
 
     return sb.operations.is_ready();
 }
@@ -199,7 +199,7 @@ size_t superblock_count()
     size_t count = 0;
 
     for (size_t i = 0; i < superblocks_length; i++) {
-        if (superblocks[i].type != SUPERBLOCK_NULL) { count++; }
+        if (superblocks[i].type != SUPERBLOCK_NULL) count++;
     }
 
     spin_unlock(&superblock_lock);
@@ -217,7 +217,7 @@ int superblock_foreach(superblock_iter_cb callback, void *arg)
 
     for (size_t i = 0; i < superblocks_length; i++) {
         if (superblocks[i].type != SUPERBLOCK_NULL) {
-            if (!callback(&superblocks[i], arg)) { break; }
+            if (!callback(&superblocks[i], arg)) break;
         }
     }
 
