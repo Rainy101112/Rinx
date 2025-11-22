@@ -47,7 +47,7 @@ int superblock_init()
     superblocks = (sb_t *)malloc(sizeof(sb_t) * DEFAULT_SUPERBLOCK_COUNT);
 
     if (superblocks == NULL) {
-        plogk("sb: Failed to initialize superblock manager.\n");
+        plogk("vfs: Failed to initialize superblock manager.\n");
         return 0;
     }
 
@@ -57,7 +57,7 @@ int superblock_init()
         superblocks[i] = sb_dummy;
     }
 
-    plogk("sb: Superblock manager successfully.\n");
+    plogk("vfs: Superblock manager successfully.\n");
 
     return 1;
 }
@@ -70,7 +70,7 @@ int superblock_register(sb_t sb)
         if (superblocks[i].type == SUPERBLOCK_NULL) {
             superblocks[i] = sb;
             spin_unlock(&superblock_lock);
-            plogk("sb: Register superblock type=%d ID=%u name=%s\n", sb.type, sb.device_id, sb.device_name);
+            plogk("vfs: Register superblock type=%d ID=%u name=%s\n", sb.type, sb.device_id, sb.device_name);
             return 1;
         }
     }
@@ -80,7 +80,7 @@ int superblock_register(sb_t sb)
 
     if (!new_blocks) {
         spin_unlock(&superblock_lock);
-        plogk("sb: Register superblock failed type=%d ID=%u Name=%s\n", sb.type, sb.device_id, sb.device_name);
+        plogk("vfs: Register superblock failed type=%d ID=%u Name=%s\n", sb.type, sb.device_id, sb.device_name);
 
         return 0;
     }
@@ -93,7 +93,7 @@ int superblock_register(sb_t sb)
     superblocks[superblocks_length / 2] = sb;
 
     spin_unlock(&superblock_lock);
-    plogk("sb: Register superblock type=%d ID=%u name=%s\n", sb.type, sb.device_id, sb.device_name);
+    plogk("vfs: Register superblock type=%d ID=%u name=%s\n", sb.type, sb.device_id, sb.device_name);
 
     return 1;
 }
@@ -107,13 +107,13 @@ int superblock_unregister(sb_t sb)
             superblocks[i] = sb_dummy;
 
             spin_unlock(&superblock_lock);
-            plogk("sb: Unregister superblock type=%d ID=%u name=%s\n", sb.type, sb.device_id, sb.device_name);
+            plogk("vfs: Unregister superblock type=%d ID=%u name=%s\n", sb.type, sb.device_id, sb.device_name);
 
             return 1;
         }
     }
 
-    plogk("sb: Unregister superblock failed type=%d ID=%u name=%s\n", sb.type, sb.device_id, sb.device_name);
+    plogk("vfs: Unregister superblock failed type=%d ID=%u name=%s\n", sb.type, sb.device_id, sb.device_name);
 
     spin_unlock(&superblock_lock);
     return 0;
